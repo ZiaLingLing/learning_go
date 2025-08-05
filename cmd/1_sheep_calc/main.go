@@ -1,8 +1,9 @@
 package main
 
 import (
-	"errors"
 	"fmt"
+
+	"learning_go/internal/sheepcalc"
 )
 
 // SCENARIO: ANTHONY IS YOUR FRIEND, HE WANTS TO BUY YOUR SHEEP BUT HE ONLY WANTS 10 MULTIPLES OF YOUR SHEEP
@@ -15,7 +16,7 @@ func main() {
 
 	fmt.Printf("You have %v sheep.\n", sheepOwned)
 	fmt.Printf("You are adding %v sheep to your sheep pen.\n", sheepNew)
-	sheepOwned, err = addSheep(sheepOwned, sheepNew)
+	sheepOwned, err = sheepcalc.AddSheep(sheepOwned, sheepNew)
 
 	if err != nil {
 		fmt.Println(err)
@@ -25,7 +26,7 @@ func main() {
 	}
 
 	// CHECKING AMOUNT OF SHEEP AND ANTHONY'S RESPONSE
-	var multiple, remainder = sellingSheep(sheepOwned)
+	var multiple, remainder = sheepcalc.SellingSheep(sheepOwned)
 
 	if multiple < 1 {
 		fmt.Println("Total sheep aren't enough to sell.")
@@ -34,27 +35,4 @@ func main() {
 	} else if multiple > 1 {
 		fmt.Printf("You can sell %v groups of 10 sheep to Anthony with %v sheep remaining.", multiple, remainder)
 	}
-}
-
-func addSheep(sheepOwned int32, sheepNew int32) (int32, error) {
-	// ERROR CHECK
-	var err error
-	if sheepOwned < 0 {
-		err = errors.New("[ERROR] Invalid number of sheep owned")
-		return 0, err
-	} else if sheepNew <= 0 {
-		err = errors.New("[ERROR] Invalid number of added sheep")
-		return 0, err
-	}
-
-	// ADDITION
-	sheepOwned = sheepOwned + sheepNew
-	return sheepOwned, err
-}
-
-func sellingSheep(sheepOwned int32) (int32, int32) {
-	var multiple int32 = sheepOwned / 10
-	var remainder int32 = sheepOwned % 10
-
-	return multiple, remainder
 }
