@@ -7,12 +7,14 @@ import (
 )
 
 // SCENARIO: ANTHONY IS YOUR FRIEND, HE WANTS TO BUY YOUR SHEEP BUT HE ONLY WANTS 10 MULTIPLES OF YOUR SHEEP
-// THIS IS A SILLY PROGRAM THAT HELPS YOU COUNT YOUR SHEEP AND HOW MANY YOU CAN SELL TO ANTHONY
+// THIS IS A SILLY PROGRAM THAT HELPS YOU COUNT YOUR SHEEP AND HOW MANY YOU CAN SELL TO ANTHONY (No user input)
 
 func main() {
 	var sheepOwned int32 = 90
 	var sheepNew int32 = 189
 	var err error
+
+	fmt.Println("Scenario: Anthony is your friend, he wants to buy your sheep under the requirement that they must be in multiples of 10.")
 
 	fmt.Printf("You have %v sheep.\n", sheepOwned)
 	fmt.Printf("You are adding %v sheep to your sheep pen.\n", sheepNew)

@@ -6,7 +6,7 @@ import (
 )
 
 func CommandSection(command string) string {
-	fmt.Print("\n", `🖥️ COMMAND SECTION:
+	fmt.Print("\n", `🖥️ COMMAND LINE INTERFACE:
 Enter [0] to insert a new task.
 Enter [1] to mark task completed.
 Enter [2] to mark task incomplete.

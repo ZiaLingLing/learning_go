@@ -12,7 +12,7 @@ func main() {
 	var command string
 	var status string
 
-	fmt.Println("📋 WELCOME TO Ei4 TASK MANAGER")
+	fmt.Println("🗂️ WELCOME TO Ei4 TASK MANAGER")
 	fmt.Println("- This program will help you keep tab of your incomplete and completed task.")
 TaskLoop:
 	for {
@@ -20,20 +20,26 @@ TaskLoop:
 		taskmanager.DisplayTask(taskList, status, taskStatus)
 		command = taskmanager.CommandSection(command)
 
-		if command == "0" {
+		switch command {
+		case "0":
 			taskList, status = taskmanager.InsertTask(taskList, taskStatus, enterTask, status)
 			continue
-		} else if command == "1" {
+		case "1":
 			taskmanager.MarkComplete(taskList, taskStatus)
 			continue
-		} else if command == "2" {
+		case "2":
 			taskmanager.MarkIncomplete(taskList, taskStatus)
-		} else if command == "3" {
-
-		} else if command == "X" {
-			fmt.Println("📋 Exiting Program.")
+			continue
+		case "3":
+			taskmanager.EditTask(taskList)
+			continue
+		case "4":
+			taskList, taskStatus = taskmanager.RemoveTask(taskList, taskStatus)
+			continue
+		case "X":
+			fmt.Println("🗂️ Exiting Program.")
 			break TaskLoop
-		} else {
+		default:
 			fmt.Println("❗ Error has occured.")
 			break TaskLoop
 		}

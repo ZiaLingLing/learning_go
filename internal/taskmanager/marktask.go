@@ -8,7 +8,6 @@ import (
 func MarkComplete(taskList []string, taskStatus map[string]bool) {
 	var mark string
 	var task string
-
 	for {
 		fmt.Print("✏️ Enter the task number to mark as completed: ")
 		fmt.Scanln(&mark)
@@ -27,7 +26,7 @@ func MarkComplete(taskList []string, taskStatus map[string]bool) {
 		}
 
 		taskStatus[task] = true
-		fmt.Printf("✏️ Task \"%s\" marked as completed.\n", task)
+		fmt.Printf("📝 Task \"%s\" marked as completed.\n", task)
 		break
 	}
 }
@@ -48,13 +47,13 @@ func MarkIncomplete(taskList []string, taskStatus map[string]bool) {
 
 		task = taskList[index-1]
 
-		if taskStatus[task] == false {
+		if !taskStatus[task] {
 			fmt.Println("❗ Task still incomplete.")
 			break
 		}
 
 		taskStatus[task] = false
-		fmt.Printf("✏️ Task \"%s\" marked as incomplete.\n", task)
+		fmt.Printf("📝 Task \"%s\" marked as incomplete.\n", task)
 		break
 	}
 }
