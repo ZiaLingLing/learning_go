@@ -2,19 +2,23 @@ package taskmanager
 
 import (
 	"fmt"
-	"strconv"
+	"learning_go/internal/inputvalidator"
 )
 
 func MarkComplete(taskList []string, taskStatus map[string]bool) {
-	var mark string
+	var num string
 	var task string
 	for {
-		fmt.Print("✏️ Enter the task number to mark as completed: ")
-		fmt.Scanln(&mark)
+		var taskList, ok = inputvalidator.TaskAvailability(taskList)
+		if !ok {
+			break
+		}
 
-		var index, err = strconv.Atoi(mark)
-		if err != nil || index < 1 || index > len(taskList) {
-			fmt.Println("❗ Invalid task number, please enter the correct task number.")
+		fmt.Print("✏️ Enter the task number to mark as completed: ")
+		fmt.Scanln(&num)
+
+		var index, err = inputvalidator.IsValidNumberInput(num, 0, len(taskList), "task number")
+		if !err {
 			continue
 		}
 
@@ -32,16 +36,20 @@ func MarkComplete(taskList []string, taskStatus map[string]bool) {
 }
 
 func MarkIncomplete(taskList []string, taskStatus map[string]bool) {
-	var mark string
+	var num string
 	var task string
 
 	for {
-		fmt.Print("✏️ Enter the task number to mark as incomplete: ")
-		fmt.Scanln(&mark)
+		var taskList, ok = inputvalidator.TaskAvailability(taskList)
+		if !ok {
+			break
+		}
 
-		var index, err = strconv.Atoi(mark)
-		if err != nil || index < 1 || index > len(taskList) {
-			fmt.Println("❗ Invalid task number, please enter the correct task number.")
+		fmt.Print("✏️ Enter the task number to mark as incomplete: ")
+		fmt.Scanln(&num)
+
+		var index, err = inputvalidator.IsValidNumberInput(num, 0, len(taskList), "task number")
+		if !err {
 			continue
 		}
 

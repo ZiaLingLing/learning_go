@@ -2,7 +2,7 @@ package taskmanager
 
 import (
 	"fmt"
-	"strconv"
+	"learning_go/internal/inputvalidator"
 )
 
 func CommandSection(command string) string {
@@ -21,9 +21,8 @@ Enter [X] to exit program.`, "\n")
 		if command == "X" {
 			return command
 		}
-		var num, err = strconv.Atoi(command)
-		if err != nil || 0 > num || num > 4 {
-			fmt.Println("❗ Invalid command, please enter a correct command.")
+		var _, err = inputvalidator.IsValidNumberInput(command, 0, 4, "command")
+		if !err {
 			continue
 		}
 		return command

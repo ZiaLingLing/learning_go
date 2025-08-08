@@ -3,8 +3,8 @@ package taskmanager
 import (
 	"bufio"
 	"fmt"
+	"learning_go/internal/inputvalidator"
 	"os"
-	"strconv"
 )
 
 func EditTask(taskList []string) []string {
@@ -12,12 +12,16 @@ func EditTask(taskList []string) []string {
 	var rename string
 
 	for {
+		var taskList, ok = inputvalidator.TaskAvailability(taskList)
+		if !ok {
+			break
+		}
+
 		fmt.Print("✏️ Enter the task number to edit: ")
 		fmt.Scanln(&num)
 
-		var index, err = strconv.Atoi(num)
-		if err != nil || index < 0 || index > len(taskList) {
-			fmt.Println("❗ Invalid task number, please enter the correct task number.")
+		var index, err = inputvalidator.IsValidNumberInput(num, 0, len(taskList), "task number")
+		if !err {
 			continue
 		}
 
@@ -30,6 +34,7 @@ func EditTask(taskList []string) []string {
 		taskList[index-1] = rename
 
 		fmt.Println("📝 Task renamed.")
-		return taskList
+		break
 	}
+	return taskList
 }

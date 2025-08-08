@@ -2,7 +2,7 @@ package taskmanager
 
 import (
 	"fmt"
-	"strconv"
+	"learning_go/internal/inputvalidator"
 )
 
 func RemoveTask(taskList []string, taskStatus map[string]bool) ([]string, map[string]bool) {
@@ -10,18 +10,24 @@ func RemoveTask(taskList []string, taskStatus map[string]bool) ([]string, map[st
 	var taskToRemove string
 	var command string
 
+CommandLoop:
 	for {
+		updatedList, ok := inputvalidator.TaskAvailability(taskList)
+		if !ok {
+			break
+		}
+		taskList = updatedList
+
 		fmt.Print("✏️ Enter the task number to remove: ")
 		fmt.Scanln(&num)
 
-		var index, err = strconv.Atoi(num)
-		if err != nil || index < 1 || index > len(taskList) {
-			fmt.Println("❗ Invalid task number, please enter the correct task number.")
-			continue
+		var index, err = inputvalidator.IsValidNumberInput(num, 1, len(taskList), "task number")
+		if !err {
+			break
 		}
+
 		taskToRemove = taskList[index-1]
 
-	CommandLoop:
 		for {
 			fmt.Printf("📝 You're removing \"%d. %s\" task.\n", index, taskList[index-1])
 			fmt.Print("❗ Are you sure? (Y/N): ")
@@ -35,13 +41,13 @@ func RemoveTask(taskList []string, taskStatus map[string]bool) ([]string, map[st
 				delete(taskStatus, taskToRemove)
 				break CommandLoop
 			case "N":
-				fmt.Println("📝 Going back to Command Line Interface.")
+				fmt.Println("📝 Returning to Command Line Interface.")
 				break CommandLoop
 			default:
 				fmt.Println("❗ Invalid command, please enter a correct command.")
 				continue
 			}
 		}
-		return taskList, taskStatus
 	}
+	return taskList, taskStatus
 }
